@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       /* 重置默认样式 */
+       html,body,ul,h3{
+           padding: 0;
+           margin: 0;
+       }
+       ul{
+           list-style: none;
+       }
+       input,textarea,button{
+           border: 0;
+           outline: 0;
+           padding: 0;
+           display: block;
+       }
+       .containter{
+           width: 800px;
+           margin: 0 auto;
+           background-color: azure;
+       }
+       .header h3{
+           height: 60px;
+           text-align: center;
+           line-height: 60px;
+           border-bottom: 5px solid gray;
+       }
+       .main .title{
+           height: 50px;
+       }
+       .main .title label{
+           margin-left: 20px;
+           height: 20px;
+       }
+       .main .title input{
+           margin-left: 20px;
+           height: 30px;
+           width: 500px;
+       }
+       .main .content label{
+           margin-left: 20px;
+       }
+       .main .content textarea{
+           margin-left: 20px;
+           width: 500px;
+           height: 100px;
+           /* 防止文本输入域大小被缩放化 */
+           resize: none;
+       }
+       .main .submit{
+           height: 80px;
+           margin-top: 20px;
+           background-color: #f8f8f8;
+           /* 独立渲染区域 */
+           overflow: hidden;
+       }
+       .main .submit button{
+           height: 50px;
+           width: 100px;
+           margin-left: 20px;
+           /* (80-50)/2=15 */
+           margin-top: 15px;
+           cursor: pointer;
+       }
+       .main .list{
+           margin-top: 20px;
+       }
+       .main .list ul{
+           margin-left: 20px;
+           width: 500px;
+           background-color: cadetblue;
+       }
+       .main .list ul li{
+           min-height: 100px;
+           position: relative;
+           border-bottom: 1px solid #ccc;
+           margin-bottom: 10px;
+       }
+       .main .list ul li h3{
+           font-weight: normal;
+           font-size: 16px;
+       }
+       .main .list ul li p{
+           font-size: 14px;
+       }
+       .main .list ul li span{
+           display: block;
+           width: 20px;
+           height: 20px;
+           text-align: center;
+           line-height: 20px;
+           font-size: 12px;
+           /* border:1px solid #ccc ; */
+           position: absolute;
+           right: 0;
+           top: 0;
+
+       }
+       .main .list ul li span>img{
+           width: 100%;
+           height: 100%;
+           display: inline-block;
+       }
+    </style>
+</head>
+<body>
+    <div class="containter">
+        <div class="header">
+            <h3>发表评论</h3>
+        </div>
+        <div class="main">
+            <div class="title">
+                <label for="title">标题：</label>
+                <input type="text"  id="title">
+            </div>
+            <div class="content">
+                <label for="content">内容：</label> 
+                <textarea  id="content" cols="30" rows="10" ></textarea>
+            </div>
+            <div class="submit">
+                <button class="btn">发表</button>
+            </div>
+            <div class="list">
+                <!-- <ul>
+                    <li>
+                        <h3>标题</h3>
+                        <p>内容</p>
+                        <span class="del"><img src="./error.png" alt=""></span>
+                    </li>
+                </ul> -->
+            </div>
+           
+        </div>
+    </div>
+
+    <script src="./jquery-3.4.1.min.js"></script>
+    <script>
+        $(function(){ 
+            var html = "";
+           $(".btn").on('click',function(){
+				//val()设置或返回被选元素的属性值（针对表单元素） js中是value
+               var v1 = $('#title').val();
+               var v2 = $('#content').val();
+               console.log(v1)
+            //    判断标题和内容是否有值
+            if(v1.length !=0 && v2.length !=0){
+                console.log("test");
+                var list = `<ul>
+                    <li>
+                        <h3>${v1}</h3>
+                        <p>${v2}</p>
+                        <span class="del"><img src="./error.png" alt=""></span>
+                    </li>
+                </ul>`;
+                //append()在被选元素的结尾插入内容
+                $('.list').append(list); //ul标签里面的内容
+                $('.list>ul').innerHTML = html; //在渲染完毕之后再获取
+                
+            }
+           })
+
+           // span.del 获取删除
+          $('.list').on('click','.del',function(){
+              console.log(this);
+             $(this).parent().remove();
+              
+          })
+            
+
+        })
+    </script>
+</body>
+</html>
